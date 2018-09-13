@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="js/mui.min.js"></script>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <script type="text/javascript" src="js/app.js" ></script>
+    <script type="text/javascript" charset="utf-8">
+      	mui.init();
+    </script>
+</head>
+<body onbeforeunload="close();">
+
+	<script>
+		app.init();
+		/*var chain=app.chain;
+		var votesuit=[];
+		for(var idx in chain){
+			var block=chain[idx];
+			var vote=block['vote'];
+		}
+		*/
+
+
+		function showchain(){
+			var content=document.getElementById("content");
+			var str="";
+			var chain=app.chain;
+			for(var idx in chain){
+			var block=chain[idx];
+			str=str+JSON.stringify(block)+"<br />";
+		}
+			content.innerHTML= str;
+		}
+		function toupiao(){
+			var name=document.getElementById("name");
+			name=name.value;
+			if(!name){
+				mui.alert("投票人不能为空");
+			}
+			app.new_vote(localStorage.getItem("ownnode"),name,1);
+			mui.toast("提交投票成功，等待挖矿")
+		}
+	</script>
+	<p>您的address:<font id="address"></font></p>
+	
+	您要给谁投票：<input type="text" id="name"/>
+	<input type="button" value="点击投票" onclick="toupiao()"/>
+	<input type="button" value="点击挖矿" onclick="mine();"/>
+	<input type="button" value="查看区块详情" onclick="showchain()"/>
+		<p id="content"></p>
+		<script>		var address=document.getElementById("address")
+		address.innerHTML=localStorage.getItem("ownnode")</script>
+</body>
+</html>
