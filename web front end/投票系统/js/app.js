@@ -58,6 +58,11 @@ var app={
 				that.chain.push(block);
 				that.save_chain(this.chain);
 			}
+			if(data['getchain']){
+				that.socket.send(JSON.stringify({
+					"chain":that.chain
+				}))
+			}
 		}
 	},
 	read_chain:function(){
@@ -191,6 +196,9 @@ var app={
        },
     get_other_chain:function(){
     	var socket=this.socket;
+    	socket.send(JSON.stringify({
+    		"getchain":"1"
+    	}))
     	
     }
 };

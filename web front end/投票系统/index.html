@@ -31,6 +31,7 @@
 			for(var idx in chain){
 			var block=chain[idx];
 			str=str+JSON.stringify(block)+"<br />";
+			app.get_other_chain();
 		}
 			content.innerHTML= str;
 		}
@@ -41,7 +42,7 @@
 				mui.alert("投票人不能为空");
 			}
 			app.new_vote(localStorage.getItem("ownnode"),name,1);
-			mui.toast("提交投票成功，等待挖矿")
+			mui.toast("提交投票成功，等待挖矿");
 		}
 	</script>
 	<p>您的address:<font id="address"></font></p>
