@@ -49,10 +49,27 @@
 	
 	您要给谁投票：<input type="text" id="name"/>
 	<input type="button" value="点击投票" onclick="toupiao()"/>
-	<input type="button" value="点击挖矿" onclick="mine();"/>
+	<input type="button" value="点击挖矿" onclick="gotowork();" id="wk"/>
 	<input type="button" value="查看区块详情" onclick="showchain()"/>
 		<p id="content"></p>
-		<script>		var address=document.getElementById("address")
-		address.innerHTML=localStorage.getItem("ownnode")</script>
+		<script>
+		var address=document.getElementById("address")
+		address.innerHTML=localStorage.getItem("ownnode")
+		var wk=document.getElementById("wk");
+		function gotowork(){
+			var work=new Worker("js/work.js");
+			wk.value="正在挖矿，请稍后";
+			wk.disabled=true;
+			work.postMessage(app.chain);
+			work.onmessage=function(event){
+				var proof=event.data;
+				var block = app.new_block(proof);
+				broad();
+				wk.value="点击挖矿";
+				wk.disabled=false;
+				mui.toast("挖矿成功，已广播至全网");
+			}
+		}
+		</script>
 </body>
 </html>

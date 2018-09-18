@@ -113,8 +113,7 @@ var app={
 				'voter':voter,
 				'elector':elector,
 				'num_vote':num_vote
-			}
-		this.current_votes.push(vote)
+		}
 		var socket=this.socket
 		
 		socket.send(JSON.stringify({
@@ -148,7 +147,7 @@ var app={
 	valid_proof: function(last_proof, proof) {
 		var str = last_proof.toString() + proof.toString()
 		var sha = sha256_digest(str)
-		if(sha.substring(0, 4) == '0000') {
+		if(sha.substring(0, 6) == '000000') {
 			console.log(sha)
 			return true
 		} else {
@@ -202,14 +201,7 @@ var app={
     	
     }
 };
-function mine() {//挖矿函数
-	var last_block = app.last_block();
-	var last_proof = last_block['proof'];
-	var proof = app.proof_of_work(last_proof);
-	var block = app.new_block(proof);
-	broad();
-	mui.toast("挖矿成功，已广播至全网");
-}
+
 function close(){
 	app.socket.close();
 }
